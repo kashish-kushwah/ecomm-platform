@@ -54,6 +54,7 @@
 
 						<!-- Container starts -->
 						<div class="container-fluid">
+							@include('common.alert')
 
 							@yield("content")
 

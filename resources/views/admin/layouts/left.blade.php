@@ -38,7 +38,7 @@
         </a>
         <ul class="treeview-menu">
           <li>
-            <a href="accordions.html">Categories</a>
+            <a href="{{route('admin.category.index')}}">Categories</a>
           </li>
           <li>
             <a href="alerts.html">Products</a>
