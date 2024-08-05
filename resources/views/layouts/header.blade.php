@@ -68,7 +68,7 @@
                   <a href="shop.html" class="dropdown-item">Shop</a>
                 </li>
                 <li>
-                  <a href="cart.html" class="dropdown-item">Cart</a>
+                  <a href="{{ route('front.cart.view')}}" class="dropdown-item">Cart</a>
                 </li>
                 <li>
                   <a href="checkout.html" class="dropdown-item">Checkout</a>
@@ -109,7 +109,7 @@
                     @endauth
                   </li>
                   <li>
-                    <a href="cart.html">
+                    <a href="{{ route('front.cart.view')}}">
                       <svg class="cart">
                         <use xlink:href="#cart"></use>
                       </svg>

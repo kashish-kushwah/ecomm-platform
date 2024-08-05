@@ -37,6 +37,11 @@ $alt = 0;
                 ${{$subtotal}}
             </div>
         </div>
+        <div class="row mt-3">
+            <div class="col-12 text-end">
+                <a class="btn btn-primary" href="{{ route('front.cart.shipping.view')}}">Proceed To Checkout</a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

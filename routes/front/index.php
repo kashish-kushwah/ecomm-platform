@@ -21,4 +21,12 @@ Route::get('/service', function () {
 Route::group(['middleware' => ['auth']], function () {
   Route::post('/cart/addtocart/{product}', [CartController::class, 'addToCart'])->name('front.cart.addtocart');
   Route::get('/cart/view', [CartController::class, 'view'])->name('front.cart.view');
+
+  Route::get('/cart/shipping/view', [CartController::class, 'shippingView'])->name('front.cart.shipping.view');
+  Route::post('/cart/shipping/store', [CartController::class, 'storeShipping'])->name('front.cart.shipping.storeShipping');
+
+  Route::post('/cart/summary', [CartController::class, 'summary'])->name('front.cart.summary');
+  
 });
+
+
