@@ -95,11 +95,18 @@
                     </a>
                   </li>
                   <li class="pe-3">
-                    <a href="#">
+                    @auth
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-primary btn-sm">Logout</button>
+                      </form>
+                      @else
+                    <a href="{{route('login')}}">
                       <svg class="user">
                         <use xlink:href="#user"></use>
                       </svg>
                     </a>
+                    @endauth
                   </li>
                   <li>
                     <a href="cart.html">

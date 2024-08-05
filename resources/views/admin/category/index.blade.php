@@ -1,5 +1,6 @@
 @extends('admin.layouts.main')
 @section('content')
+<h2>Create Category</h2>
   <a href="{{ route('admin.category.create') }}" class="btn btn-primary mb-2">Create</a>
   <table class="table table-bordered">
     <thead>

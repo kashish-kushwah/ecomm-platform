@@ -11,20 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("image")->nullable(true);
-            $table->tinyInteger("status")->default(1);
+            $table->foreignId("user_id")->constrained("users", "id")->cascadeOnDelete();
+            $table->foreignId("product_id")->constrained("products", "id")->cascadeOnDelete();
+            $table->double("price", 11, 2)->default(0.00);
+            $table->integer("qty")->default(1);
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('carts');
     }
 };

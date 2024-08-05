@@ -123,9 +123,8 @@
               @foreach (\App\Models\Product::where('category_id', $category->id)->inRandomOrder()->limit(5)->get() as $product)
                 <div class="swiper-slide">
                   <div class="product-card position-relative">
-                    <div class="image-holder">
-                      <img src="https://picsum.photos/seed/{{str_replace(" ","-",$product->title)}}/310/418" alt="product-item"
-                        class="img-fluid">
+                    <div class="image-holder">  
+                    <img src="{{asset('images/products/'.$product->image)}}" alt="">
                     </div>
                     <div class="cart-concern position-absolute">
                       <div class="cart-button d-flex">
@@ -136,7 +135,7 @@
                     </div>
                     <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
                       <h3 class="card-title text-uppercase">
-                        <a href="#">{{ $product->title }}</a>
+                        <a href="{{ route('products.show', $product->id) }}">{{ $product->title }}</a>
                       </h3>
                       <span class="item-price text-primary">${{ $product->price }}</span>
                     </div>

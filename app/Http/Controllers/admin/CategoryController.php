@@ -8,26 +8,17 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $items = Category::all();
         return view('admin.category.index',['items' => $items]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.category.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -45,38 +36,40 @@ class CategoryController extends Controller
         }
 
         Category::create($data);
-        return redirect()->route('admin.category.index')->with('success', 'Categor created');
+        return redirect()->route('admin.category.index')->with('success', 'Category created');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validate([
+            'title' =>'required',
+            'image' => 'nullable|image|mime_types:image/*',
+            'status' => 'required|boolean'
+        ]);
+
+        $data['status'] = 1;
+
+        if($request->hasFile('image')){
+            
+            $filename = uniqid().time().str_replace(" ","_", $request->file('image')->getClientOriginalName());
+            
+            $path = public_path().'/images/categories/';
+            $request->file('image')->move($path, $filename);
+            $data['image'] = $filename;
+        }
+
+        $category->update($data);
+        return redirect()->route('admin.category.index')->with('success', 'Category updated');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Category $category)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $category->delete();
+        return redirect()->route('admin.category.index')->with('success', 'Category deleted successfully.');
     }
 }

@@ -19,7 +19,7 @@
         </a>
       </li>
       <li>
-        <a href="sales.html">
+        <a href="{{ route('admin.user.index') }}">
           <i class="bi bi-bar-chart-line"></i>
           <span class="menu-text">User Manager</span>
         </a>
@@ -41,7 +41,7 @@
             <a href="{{route('admin.category.index')}}">Categories</a>
           </li>
           <li>
-            <a href="alerts.html">Products</a>
+            <a href="{{ route('admin.product.index') }}">Products</a>
           </li>
           
         </ul>

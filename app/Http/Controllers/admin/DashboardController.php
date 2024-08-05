@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DashboardControlller extends Controller
+class DashboardController extends Controller
 {
     function index(){
         return view('admin.dashboard');
