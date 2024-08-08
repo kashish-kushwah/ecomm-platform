@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\front;
 
+use App\Helpers\CartHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -59,8 +62,53 @@ class CartController extends Controller
     public function summary(Request $request){
         $_SESSION['shipping_address_id'] = $request->selected_address;
         $address = Address::where('id', $_SESSION['shipping_address_id'])->first();
+
+        $userID = auth()->user()->id;
+        // create order
+        $order = Order::where(['user_id' => $userID, 'order_status' => 'pending'])->first();
+        if (!$order) {
+            $order = new Order();
+            $order->user_id = $userID;
+            $order->shipping_address = $_SESSION['shipping_address_id'];
+            $order->shipping_amount = 0;
+            $order->items_amount = CartHelper::getCartTotal($userID);
+            $order->total_amount = $order->items_amount + $order->shipping_amount;
+            $order->order_status = 'pending';
+        } else {
+            $order->shipping_address = $_SESSION['shipping_address_id'];
+            $order->shipping_amount = 0;
+            $order->items_amount = CartHelper::getCartTotal($userID);
+            $order->total_amount = $order->items_amount + $order->shipping_amount;
+        }
+        $order->save();
+        // order details main entry
+        $cart = Cart::where("user_id", $userID)->get();
+        if ($cart) {
+            foreach ($cart as $row) {
+                $orderDetail = OrderDetail::where(["order_id" => $order->id, 'product_id' => $row->product_id])->first();
+                if ($orderDetail) {
+                    $orderDetail->qty = $row->qty;
+                    $orderDetail->price = $row->price;
+                } else {
+                    $orderDetail = new OrderDetail;
+                    $orderDetail->order_id = $order->id;
+                    $orderDetail->product_id = $row->product_id;
+                    $orderDetail->title = $row->product->title;
+                    $orderDetail->price = $row->price;
+                    $orderDetail->qty = $row->qty;
+                }
+                $orderDetail->save();
+            }
+        }
+
         $carts = Cart::where("user_id", auth()->user()->id)->get();
-        return view("front.cart.summary", ['carts' => $carts,'address' => $address]);
+        return view("front.cart.summary", ['carts' => $carts,'address' => $address,'order' => $order]);
+    }
+
+    public function removeItem(Request $request){
+        $id = $request->id;
+        Cart::where("id", $id)->delete();
+        return redirect()->back()->with('success',"Cart item removed");
     }
 }
     

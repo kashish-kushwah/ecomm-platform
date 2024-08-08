@@ -50,7 +50,11 @@
           <div>Zipcode: {{ $address->address_zipcode }}</div>
         </div>
         <div class="col-3 text-end">
-          <a class="btn btn-primary" href="{{ route('front.cart.shipping.view') }}">Make Payment</a>
+          <form action="{{ route('front.razorpay.payment', $order->id) }}" method="get">
+            @csrf
+            <button type="submit" class="btn btn-primary">Make Payment</button>
+          </form>
+
         </div>
       </div>
     </div>

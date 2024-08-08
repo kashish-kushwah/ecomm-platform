@@ -222,5 +222,6 @@
     <script type="text/javascript" src="{{asset('front-assets/js/bootstrap.bundle.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('front-assets/js/plugins.js')}}"></script>
     <script type="text/javascript" src="{{asset('front-assets/js/script.js')}}"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   </body>
 </html>
