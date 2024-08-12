@@ -20,6 +20,8 @@ Route::get('/service', function () {
   return view('front.static.service');
 })->name('front.static.service');
 
+Route::get('/search', [ShopController::class,'search'])->name('front.product.search');
+
 Route::group(['middleware' => ['auth']], function () {
   Route::post('/cart/addtocart/{product}', [CartController::class, 'addToCart'])->name('front.cart.addtocart');
   Route::get('/cart/view', [CartController::class, 'view'])->name('front.cart.view');

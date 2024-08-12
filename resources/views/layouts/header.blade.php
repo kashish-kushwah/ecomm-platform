@@ -1,9 +1,9 @@
 <div class="search-popup">
   <div class="search-popup-container">
 
-    <form role="search" method="get" class="search-form" action="">
+    <form role="search" method="get" class="search-form" action="{{ route('front.product.search') }}">
       <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value=""
-        name="s" />
+        name="term" />
       <button type="submit" class="search-submit"><svg class="search">
           <use xlink:href="#search"></use>
         </svg></button>
@@ -17,7 +17,7 @@
 <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
   <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{{ url('/')}}">
+      <a class="navbar-brand" href="{{ url('/') }}">
         <img src="{{ asset('front-assets/images/main-logo.png') }}" class="logo">
       </a>
       <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
@@ -28,7 +28,7 @@
       </button>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="bdNavbar" aria-labelledby="bdNavbarOffcanvasLabel">
         <div class="offcanvas-header px-4 pb-0">
-          <a class="navbar-brand" href="{{ url('/')}}">
+          <a class="navbar-brand" href="{{ url('/') }}">
             <img src="{{ asset('front-assets/images/main-logo.png') }}" class="logo">
           </a>
           <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close"
@@ -40,7 +40,7 @@
               <a class="nav-link me-4 active" href="{{ url('/') }}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link me-4" href="{{route('front.static.service')}}">Services</a>
+              <a class="nav-link me-4" href="{{ route('front.static.service') }}">Services</a>
             </li>
             <li class="nav-item">
               <a class="nav-link me-4" href="#mobile-products">Products</a>
@@ -68,7 +68,7 @@
                   <a href="shop.html" class="dropdown-item">Shop</a>
                 </li>
                 <li>
-                  <a href="{{ route('front.cart.view')}}" class="dropdown-item">Cart</a>
+                  <a href="{{ route('front.cart.view') }}" class="dropdown-item">Cart</a>
                 </li>
                 <li>
                   <a href="checkout.html" class="dropdown-item">Checkout</a>
@@ -96,20 +96,20 @@
                   </li>
                   <li class="pe-3">
                     @auth
-                    <form action="{{route('logout')}}" method="post">
+                      <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <button type="submit" class="btn btn-primary btn-sm">Logout</button>
                       </form>
-                      @else
-                    <a href="{{route('login')}}">
-                      <svg class="user">
-                        <use xlink:href="#user"></use>
-                      </svg>
-                    </a>
+                    @else
+                      <a href="{{ route('login') }}">
+                        <svg class="user">
+                          <use xlink:href="#user"></use>
+                        </svg>
+                      </a>
                     @endauth
                   </li>
                   <li>
-                    <a href="{{ route('front.cart.view')}}">
+                    <a href="{{ route('front.cart.view') }}">
                       <svg class="cart">
                         <use xlink:href="#cart"></use>
                       </svg>

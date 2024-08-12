@@ -13,4 +13,14 @@ class ShopController extends Controller
        // $product = Product::findOrFail($product->Id);
         return view('front.product.show', ['product' => $product]);
     }
+
+    public function search(Request $request){
+        $term = $request->term;
+        $query = Product::query();
+        if($term){
+            $query->where('title', 'like', '%' . $term . '%');
+        }
+        $products = $query->paginate(12);
+        return view('front.product.search', ['products' => $products,'term' => $term]);
+    }   
 }
